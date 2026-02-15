@@ -1,0 +1,455 @@
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffe6ef 0%, #fff6fa 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Comic Neue', cursive, Arial, sans-serif;
+  overflow: hidden;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-valentin {
+  background: #fff6fa;
+  border-radius: 32px;
+  box-shadow: 0 8px 40px #e955bd33, 0 1.5px 0 #fff inset;
+  padding: 48px 36px 36px 36px;
+  position: relative;
+  text-align: center;
+  border: 2.5px solid #ffe0f7;
+  min-width: 340px;
+  min-height: 320px;
+  z-index: 1;
+}
+
+/* Corazón con candado */
+
+/* Corazón con candado estilo imagen */
+.heart-lock {
+  position: relative;
+  width: 160px;
+  height: 200px;
+  margin: 0 auto 18px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.heart-lock:hover {
+  transform: scale(1.07);
+}
+.lock-arc {
+  width: 80px;
+  height: 80px;
+  border: 10px solid #111;
+  border-bottom: none;
+  border-radius: 50px 50px 0 0;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  z-index: 2;
+}
+.heart-shape {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 135px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.heart-core {
+  width: 150px;
+  height: 135px;
+  background: #e11c1c;
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* Forma de corazón más redondeada */
+  clip-path: polygon(
+    50% 92%,
+    8% 60%,
+    0% 32%,
+    12% 12%,
+    32% 8%,
+    50% 22%,
+    68% 8%,
+    88% 12%,
+    100% 32%,
+    92% 60%
+  );
+  z-index: 1;
+  box-shadow: 0 8px 24px #e955bd44;
+}
+.heart-hole {
+  width: 22px;
+  height: 30px;
+  background: #111;
+  border-radius: 50% 50% 60% 60%/60% 60% 100% 100%;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  box-shadow: 0 2px 8px #e955bd33;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.heart-hole::after {
+  content: "";
+  display: block;
+  width: 7px;
+  height: 14px;
+  background: #111;
+  border-radius: 5px 5px 10px 10px;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+/* Mensaje */
+.message {
+  color: #e955bd;
+  font-size: 1.3rem;
+  margin-top: 30px;
+  font-family: 'Comic Neue', cursive;
+  text-shadow: 0 2px 8px #fff, 0 1px 0 #e955bd33;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+}
+
+/* Corazones animados flotando */
+.floating-hearts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.floating-heart {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  will-change: transform, opacity;
+  animation: heartRain linear infinite;
+  font-size: var(--size, 1.5rem);
+  color: var(--color, #ff4d6d);
+  opacity: var(--opacity, 0.8);
+  filter: drop-shadow(0 2px 8px #e955bd33);
+  transform: rotate(var(--rot, 0deg)) scale(var(--scale, 1));
+}
+@keyframes heartRain {
+  0% {
+    transform: translateY(-10vh) rotate(var(--rot, 0deg)) scale(var(--scale, 1));
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(var(--rot, 0deg)) scale(var(--scale, 1));
+    opacity: 0;
+  }
+}
+}
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0.7) rotate(-10deg); opacity: 0.7; }
+  80% { opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1.1) rotate(10deg); opacity: 0; }
+}
+  right: 0;
+  top: 0;
+}
+@keyframes float {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(-100vh);
+  }
+}
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background-color: #f7dada;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  text-align: center;
+  position: relative;
+}
+
+/* Corazón principal */
+.heart-wrapper {
+  position: relative;
+  width: 120px;
+  height: 110px;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+.heart-wrapper:hover {
+  transform: scale(1.1);
+}
+
+/* Forma del corazón */
+.heart {
+  width: 100px;
+  height: 90px;
+  background: #ff4d6d;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  transform: rotate(-45deg);
+  transition: background 0.3s;
+}
+.heart::before,
+.heart::after {
+  content: "";
+  width: 100px;
+  height: 90px;
+  background: #ff4d6d;
+  border-radius: 50%;
+  position: absolute;
+}
+.heart::before {
+  top: -50px;
+  left: 0;
+}
+.heart::after {
+  left: 50px;
+  top: 0;
+}
+
+/* Candado */
+.lock {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 28px;
+  transition: color 0.3s;
+}
+
+/* Texto */
+.message {
+  color: #ff4d6d;
+  font-size: 2rem;
+  margin-top: 36px;
+  font-family: 'Pacifico', 'Comic Neue', cursive, Arial, sans-serif;
+  text-shadow: 0 2px 8px #fff, 0 1px 0 #ffb6e6;
+  letter-spacing: 1.2px;
+  font-weight: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+}
+@keyframes fadeInText {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+  animation: heartbeat 1.2s infinite;
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1) translateX(-50%); }
+  10%, 30% { transform: scale(1.08) translateX(-50%); }
+  20% { transform: scale(0.98) translateX(-50%); }
+  40%, 60% { transform: scale(1.04) translateX(-50%); }
+  50% { transform: scale(1.12) translateX(-50%); }
+  70%, 90% { transform: scale(1) translateX(-50%); }
+}
+  animation: appear 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+}
+@keyframes appear {
+  0% { opacity: 0; transform: scale(0.7) translateY(60px); }
+  80% { opacity: 1; transform: scale(1.1) translateY(-10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+}
+
+/* Corazones flotando */
+.floating-hearts {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+.floating-hearts::before {
+  content: "❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️";
+  position: absolute;
+  font-size: 14px;
+  opacity: 0.4;
+  animation: float 10s linear infinite;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+@keyframes float {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(-100vh);
+  }
+}
+
+/* Estado abierto */
+.open .heart {
+  background: #ff1e56;
+}
+.open .lock {
+  color: #ff1e56;
+}
+.open .heart-wrapper {
+  animation: beat 1s infinite;
+}
+@keyframes beat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+/* Imagen de San Valentín */
+.img-sanvalentin {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin: 0 auto 18px auto;
+  display: block;
+  cursor: pointer;
+  filter: drop-shadow(0 4px 16px #e955bd55);
+  transition: transform 0.2s;
+}
+.img-sanvalentin:hover {
+  transform: scale(1.08) rotate(-3deg);
+  filter: drop-shadow(0 8px 32px #e955bd99);
+}
+
+/* Corazones animados flotando */
+.heart-float {
+  position: fixed;
+  z-index: 10;
+  pointer-events: none;
+  font-size: 2.2rem;
+  color: #ff3e6c;
+  opacity: 0.7;
+  animation: float-heart 6s linear infinite;
+}
+@keyframes float-heart {
+  0% { transform: translateY(100vh) scale(0.7) rotate(-10deg); opacity: 0.7; }
+  80% { opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1.1) rotate(10deg); opacity: 0; }
+}
+body {
+  min-height: 100vh;
+  background: #f8e6ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Comic Neue', cursive;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.corazon-area {
+  background: #fff6fa;
+  border-radius: 24px;
+  box-shadow: 0 4px 32px #e955bd33;
+  padding: 40px 30px 30px 30px;
+  position: relative;
+  text-align: center;
+}
+
+.corazon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px auto;
+  position: relative;
+  cursor: pointer;
+}
+.corazon::before, .corazon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100px;
+  border-radius: 60px 60px 0 0;
+  background: #ff3e6c;
+}
+.corazon::before {
+  left: 60px;
+  transform: rotate(-45deg);
+}
+.corazon::after {
+  left: 0;
+  transform: rotate(45deg);
+}
+.candado {
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  width: 36px;
+  height: 36px;
+  background: #fff6fa;
+  border-radius: 50%;
+  border: 6px solid #222;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.candado::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  width: 18px;
+  height: 18px;
+  background: #ff3e6c;
+  border-radius: 50%;
+  border: 6px solid #222;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+.mensaje {
+  color: #e955bd;
+  font-size: 1.3rem;
+  margin-top: 20px;
+  font-family: 'Comic Neue', cursive;
+}

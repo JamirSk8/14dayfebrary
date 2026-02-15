@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Día de la Novia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Se eliminan estilos internos duplicados de #brillo para usar solo los de style.css -->
+</head>
+<body>
+
+    <canvas id="corazones-bg" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
+
+    <!-- Música de fondo invisible -->
+    <audio id="musicaFondo" loop style="display:none;">
+      <source src="SilvanaEstrada-SerDeTi.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Botón flotante para música -->
+    <button id="btnMusica" style="position:fixed;bottom:20px;right:20px;z-index:1000;background:#e74ba8;color:white;border:none;width:50px;height:50px;border-radius:50%;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(231, 75, 168, 0.4);transition:all 0.3s;font-weight:bold;" title="Reproducir música">🔊</button>
+
+    <div id="encabezado-container" style="position:relative;z-index:2;">
+        <div id="brillo">💞¡Feliz 1er San Valentín!💞</div>
+    </div>
+
+    <div class="galeria" style="position:relative;z-index:2;">
+        <img src="img/1.jpeg" alt="Foto 1">
+        <img src="img/2.jpg" alt="Foto 2">
+        <img src="img/3.jpeg" alt="Foto 3">
+        <img src="img/4.jpeg" alt="Foto 4">
+        <img src="img/5.jpeg" alt="Foto 5">
+    </div>
+
+    <footer style="position:relative;z-index:2;">
+        <p>Jamir y Valentina</p>
+    </footer>
+
+    <script>
+    // Corazones animados
+    const canvas = document.getElementById('corazones-bg');
+    const ctx = canvas.getContext('2d');
+    let corazones = [];
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    function randomColor() {
+        const tonos = [
+            '#ff69b4', '#ffb6c1', '#e955bd', '#ff4f81', '#ff85a1', '#ffb3de', '#ffb3c6'
+        ];
+        return tonos[Math.floor(Math.random()*tonos.length)];
+    }
+    function crearCorazon() {
+        return {
+            x: Math.random() * canvas.width,
+            y: canvas.height + 20,
+            size: 16 + Math.random() * 18,
+            speed: 1 + Math.random() * 1.5,
+            drift: (Math.random() - 0.5) * 1.2,
+            color: randomColor(),
+            alpha: 0.7 + Math.random() * 0.3
+        };
+    }
+    function dibujarCorazon(c) {
+        ctx.save();
+        ctx.globalAlpha = c.alpha;
+        ctx.translate(c.x, c.y);
+        ctx.rotate(Math.sin(c.y/50) * 0.2);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(-c.size/2, -c.size/2, -c.size, c.size/3, 0, c.size);
+        ctx.bezierCurveTo(c.size, c.size/3, c.size/2, -c.size/2, 0, 0);
+        ctx.fillStyle = c.color;
+        ctx.fill();
+        ctx.restore();
+    }
+    function animar() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (corazones.length < 30 && Math.random() < 0.2) {
+            corazones.push(crearCorazon());
+        }
+        corazones.forEach(c => {
+            c.y -= c.speed;
+            c.x += c.drift;
+            c.alpha -= 0.0008 * c.size;
+        });
+        corazones = corazones.filter(c => c.y + c.size > 0 && c.alpha > 0);
+        corazones.forEach(dibujarCorazon);
+        requestAnimationFrame(animar);
+    }
+    animar();
+    
+    // Control de música
+    const audio = document.getElementById('musicaFondo');
+    const btnMusica = document.getElementById('btnMusica');
+    let musicaActiva = false;
+    
+    btnMusica.addEventListener('click', () => {
+        if (musicaActiva) {
+            audio.pause();
+            btnMusica.textContent = '🔊';
+            musicaActiva = false;
+        } else {
+            audio.play().catch(error => console.log('Error al reproducir:', error));
+            btnMusica.textContent = '🔇';
+            musicaActiva = true;
+        }
+    });
+    
+    // Intentar reproducir automáticamente
+    audio.play().catch(() => {
+        console.log('Autoplay bloqueado. Usa el botón 🔊 para reproducir.');
+    });
+    </script>
+</body>
+</html>
